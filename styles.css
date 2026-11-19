@@ -94,14 +94,14 @@ h3, h4 { font-size: var(--type-card); font-weight: 700; letter-spacing: -.02em; 
 
 .hero-layout {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
-  grid-template-areas: "heading intro" "heading actions";
+  grid-template-columns: minmax(0, 1.32fr) minmax(0, 1fr) auto;
+  grid-template-areas: "heading intro qr" "heading actions qr";
   align-items: end;
-  gap: 20px clamp(22px, 4vw, 56px);
+  gap: 20px clamp(22px, 2.6vw, 32px);
   padding-block: clamp(34px, 5vw, 64px);
 }
 
-.hero-heading { grid-area: heading; }
+.hero-heading { grid-area: heading; align-self: center; }
 .hero-location { color: var(--muted); }
 
 .hero h1 {
@@ -128,7 +128,22 @@ h3, h4 { font-size: var(--type-card); font-weight: 700; letter-spacing: -.02em; 
   line-height: 1.35;
 }
 
+.hero-registration { display: contents; }
 .hero-actions { grid-area: actions; display: flex; flex-wrap: wrap; gap: 10px; }
+
+.hero-qr {
+  grid-area: qr;
+  align-self: center;
+  display: grid;
+  justify-items: center;
+  margin: 0;
+  padding: 8px;
+  border: 1px solid var(--line);
+  background: var(--white);
+  text-align: center;
+}
+
+.hero-qr figcaption { margin-top: 4px; color: var(--muted); }
 
 /* Shared section rhythm and card structure. */
 .section { padding-block: var(--section-space); border-bottom: 1px solid var(--line); }
@@ -375,8 +390,18 @@ h3, h4 { font-size: var(--type-card); font-weight: 700; letter-spacing: -.02em; 
   .menu-ready .nav-cta { margin-block: 12px 7px; align-self: flex-start; }
 
   .hero-layout {
-    grid-template-areas: "heading intro" "actions actions";
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-areas: "heading intro" "registration registration";
     align-items: start;
+    column-gap: clamp(22px, 4vw, 56px);
+  }
+  .hero-heading { align-self: auto; }
+  .hero-registration {
+    grid-area: registration;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 16px;
   }
 
   .about-intro { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
@@ -388,7 +413,7 @@ h3, h4 { font-size: var(--type-card); font-weight: 700; letter-spacing: -.02em; 
 
   .hero-layout {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-areas: "heading" "intro" "actions";
+    grid-template-areas: "heading" "intro" "registration";
     gap: 18px;
   }
 
