@@ -5,13 +5,16 @@ const navigation = document.querySelector('#primary-navigation');
 const mobileViewport = window.matchMedia('(max-width: 960px)');
 
 if (menuButton && navigation) {
+  const header = menuButton.closest('.site-header');
+  const menuLabel = menuButton.querySelector('.menu-label');
+
   // Only collapse the navigation after its controls are ready.
   document.documentElement.classList.add('menu-ready');
   menuButton.hidden = false;
 
   const setMenuOpen = (open, returnFocus = false) => {
     menuButton.setAttribute('aria-expanded', String(open));
-    menuButton.querySelector('.menu-label').textContent = open ? 'Close' : 'Menu';
+    menuLabel.textContent = open ? 'Close' : 'Menu';
     navigation.classList.toggle('is-open', open);
     if (returnFocus) menuButton.focus();
   };
@@ -24,7 +27,8 @@ if (menuButton && navigation) {
     const link = event.target.closest('a');
     if (!link || !mobileViewport.matches) return;
     // Keep focus out of the collapsed menu when following an in-page link.
-    const destination = link.hash && document.querySelector(link.hash);
+    const href = link.getAttribute('href');
+    const destination = href.startsWith('#') && document.getElementById(href.slice(1));
     setMenuOpen(false);
     if (destination) {
       destination.setAttribute('tabindex', '-1');
@@ -42,11 +46,13 @@ if (menuButton && navigation) {
   });
 
   document.addEventListener('click', (event) => {
-    if (!event.target.closest('.site-header')) setMenuOpen(false);
+    if (event.target.closest('.site-brand') || !header.contains(event.target)) {
+      setMenuOpen(false, navigation.contains(document.activeElement));
+    }
   });
 
-  document.querySelector('.site-header').addEventListener('focusout', (event) => {
-    if (event.relatedTarget && !event.currentTarget.contains(event.relatedTarget)) setMenuOpen(false);
+  header.addEventListener('focusout', (event) => {
+    if (event.relatedTarget && !header.contains(event.relatedTarget)) setMenuOpen(false);
   });
 
   mobileViewport.addEventListener('change', () => {
