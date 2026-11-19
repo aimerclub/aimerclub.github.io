@@ -150,6 +150,10 @@ h3, h4 { font-size: var(--type-card); font-weight: 700; letter-spacing: -.02em; 
 
 .hero-qr figcaption { max-width: 106px; margin-top: 4px; color: var(--muted); text-wrap: balance; }
 
+@media (min-width: 961px) {
+  .hero-qr { transform: translateX(24px); }
+}
+
 /* Shared section rhythm and card structure. */
 .section { padding-block: var(--section-space); border-bottom: 1px solid var(--line); }
 .section-label { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; color: var(--muted); }
