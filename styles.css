@@ -276,36 +276,61 @@ h3, h4 { font-size: var(--type-card); font-weight: 700; letter-spacing: -.02em; 
 .form-note { color: var(--muted); font-size: var(--type-small); }
 .join-action > .button { flex-shrink: 0; }
 
-/* Footer uses the same grid and readable metadata as the main page. */
-.site-footer { padding-top: clamp(28px, 4vw, 44px); }
-
-.footer-main {
-  display: grid;
-  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-  gap: var(--column-gap);
-  padding-bottom: 24px;
+/* Footer: institutional attribution and navigation above the site metadata. */
+.site-footer {
+  --footer-muted: #bdbdb8;
+  --footer-line: #3c3c3a;
+  --footer-link-gap: clamp(12px, 1.6vw, 24px);
+  border-top: 2px solid var(--red);
+  background: #151515;
+  color: var(--white);
+  font-size: var(--type-small);
+  line-height: 1.5;
 }
 
-.footer-title { font-size: var(--type-subsection); font-weight: 800; letter-spacing: -.025em; text-decoration: none; }
-.footer-title span { color: var(--red-dark); }
-.footer-full-name, .footer-partnership > p { max-width: 38ch; color: var(--muted); font-size: var(--type-small); }
-.footer-full-name { margin-top: 6px; }
-.footer-tagline { margin-top: 9px; font-size: var(--type-small); }
-.footer-partner-links { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 20px; margin-top: 10px; }
-.footer-partner-links a + a { padding-left: 20px; border-left: 1px solid var(--line); }
-
-.footer-bottom {
+.footer-top, .footer-bottom {
   display: flex;
   justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 8px 16px;
-  padding-block: 14px;
-  border-top: 1px solid var(--line);
-  color: var(--muted);
+  align-items: center;
+  gap: 12px 24px;
 }
 
-.footer-bottom a { text-decoration: none; }
-.footer-bottom a:hover { color: var(--red-dark); }
+.footer-top { padding-block: 24px 19px; }
+.footer-partner-links { display: flex; align-items: center; gap: 18px; }
+.footer-partner-links a { display: flex; align-items: center; min-height: 40px; }
+.footer-partner-links a + a { padding-left: 18px; border-left: 1px solid var(--footer-line); }
+.footer-partnership p { margin-top: 10px; color: var(--footer-muted); }
+.footer-partnership .institution-name { white-space: nowrap; }
+
+.footer-navigation, .footer-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0 var(--footer-link-gap);
+}
+
+.footer-navigation { flex-shrink: 0; align-self: flex-start; }
+.footer-navigation > a, .footer-meta > a { display: inline-flex; align-items: center; min-height: 32px; }
+.footer-navigation > a {
+  min-height: 40px;
+  font-family: var(--mono);
+  font-size: var(--type-label);
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.footer-navigation > a:hover, .footer-meta > a:hover { text-decoration: underline; }
+.site-footer a:focus-visible { outline-color: var(--white); outline-offset: 3px; }
+
+.footer-bottom {
+  padding-block: 12px;
+  border-top: 1px solid var(--footer-line);
+  color: var(--footer-muted);
+}
+
+.footer-identity { display: flex; flex-wrap: wrap; gap: 2px 12px; }
+.footer-identity strong { color: var(--white); font-weight: 650; }
+.footer-meta { flex-shrink: 0; font-size: var(--type-label); }
+.footer-meta > a { gap: 6px; color: var(--white); text-decoration: none; }
 
 @media (max-width: 960px) {
   .site-header { position: static; }
@@ -375,10 +400,15 @@ h3, h4 { font-size: var(--type-card); font-weight: 700; letter-spacing: -.02em; 
   .about-intro { grid-template-columns: 1fr; gap: 14px; }
   .vision { grid-template-columns: 1fr; gap: 4px; }
   .research-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .activity-grid, .footer-main { grid-template-columns: 1fr; }
+  .activity-grid { grid-template-columns: 1fr; }
   .activity { padding-block: 14px; }
   .student-leadership { margin-top: 24px; }
-  .footer-main { gap: 20px; }
+  .footer-top, .footer-bottom { flex-direction: column; align-items: stretch; }
+  .footer-top { padding-block: 20px 12px; }
+  .footer-navigation { align-self: stretch; }
+  .footer-navigation > a { min-height: 32px; }
+  .footer-bottom { gap: 6px; }
+  .footer-meta { justify-content: space-between; }
 }
 
 @media (max-width: 540px) {
@@ -391,6 +421,11 @@ h3, h4 { font-size: var(--type-card); font-weight: 700; letter-spacing: -.02em; 
   .pair-grid, .student-leadership-grid { grid-template-columns: minmax(0, 1fr); }
   .pair-grid > * + *, .student-role + .student-role { border-left: 0; border-top: 1px solid var(--line); }
   .join-action { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 360px) {
+  .footer-navigation { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .footer-navigation > a { justify-self: start; }
 }
 
 @media (prefers-reduced-motion: reduce) {
